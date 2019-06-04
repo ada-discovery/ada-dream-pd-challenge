@@ -1,10 +1,9 @@
 package org.ada.web.runnables.pdchallenge
 
 import javax.inject.Inject
-
 import org.ada.server.dataaccess.dataset.DataSetAccessorFactory
 import play.api.Logger
-import org.incal.core.runnables.InputFutureRunnable
+import org.incal.core.runnables.{InputFutureRunnable, InputFutureRunnableExt}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.io.Source
@@ -12,7 +11,7 @@ import scala.reflect.runtime.universe.typeOf
 
 class CheckSubmissionFeatureMetaInfoNames @Inject()(
     dsaf: DataSetAccessorFactory
-  ) extends InputFutureRunnable[CheckSubmissionFeatureMetaInfoNamesSpec] {
+  ) extends InputFutureRunnableExt[CheckSubmissionFeatureMetaInfoNamesSpec] {
 
   private val logger = Logger
 
@@ -46,8 +45,6 @@ class CheckSubmissionFeatureMetaInfoNames @Inject()(
       }
     }
   }
-
-  override def inputType = typeOf[CheckSubmissionFeatureMetaInfoNamesSpec]
 }
 
 case class CheckSubmissionFeatureMetaInfoNamesSpec(

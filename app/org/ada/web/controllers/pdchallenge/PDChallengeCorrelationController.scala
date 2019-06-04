@@ -436,7 +436,7 @@ class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) e
 
       counts <- {
         val field = categoryField.getOrElse(throw new AdaException("Field Category not found"))
-        field.numValues.get.find(_._2.equals("demographic")).map(_._1.toInt) match {
+        field.enumValues.find(_._2.equals("demographic")).map(_._1.toInt) match {
           case Some(demographicValue) =>
 
             Future.sequence(

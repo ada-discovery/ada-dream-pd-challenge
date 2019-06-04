@@ -1,11 +1,10 @@
 package org.ada.web.runnables.pdchallenge
 
 import javax.inject.Inject
-
 import org.ada.server.dataaccess.RepoTypes.DataSpaceMetaInfoRepo
 import play.api.Logger
 import reactivemongo.bson.BSONObjectID
-import org.incal.core.runnables.InputFutureRunnable
+import org.incal.core.runnables.{InputFutureRunnable, InputFutureRunnableExt}
 import org.incal.core.util.seqFutures
 
 import scala.reflect.runtime.universe.typeOf
@@ -14,7 +13,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class ImportMPowerIndividualFeatureScoreForDataSpace @Inject()(
     importScores: ImportMPowerIndividualFeatureScores,
     dataSpaceMetaInfoRepo: DataSpaceMetaInfoRepo
-  ) extends InputFutureRunnable[ImportMPowerIndividualFeatureScoreForDataSpaceSpec] {
+  ) extends InputFutureRunnableExt[ImportMPowerIndividualFeatureScoreForDataSpaceSpec] {
 
   private val logger = Logger
 
@@ -41,8 +40,6 @@ class ImportMPowerIndividualFeatureScoreForDataSpace @Inject()(
       }
     } yield
       ()
-
-  override def inputType = typeOf[ImportMPowerIndividualFeatureScoreForDataSpaceSpec]
 }
 
 case class ImportMPowerIndividualFeatureScoreForDataSpaceSpec(

@@ -1,8 +1,7 @@
 package org.ada.web.runnables.pdchallenge
 
 import javax.inject.Inject
-
-import org.incal.core.runnables.InputFutureRunnable
+import org.incal.core.runnables.{InputFutureRunnable, InputFutureRunnableExt}
 import org.incal.core.util.seqFutures
 
 import scala.reflect.runtime.universe.typeOf
@@ -10,7 +9,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class LinkKMeansWithFeatureInfo @Inject()(
     linkFeatureFile: LinkFeatureFileWithFeatureInfo
-  ) extends InputFutureRunnable[LinkKMeansWithFeatureInfoSpec] {
+  ) extends InputFutureRunnableExt[LinkKMeansWithFeatureInfoSpec] {
 
 //iter 4000, theta 0.25, per 20&50, pca (no, pca 20), scaled & unscaled
 
@@ -46,8 +45,6 @@ class LinkKMeansWithFeatureInfo @Inject()(
       pca <- pcas
     ) yield
       s"$prefix-cols-2d_iter-4000_per-$per.0_theta-0.25${pca}-${kMeansType}_${k}_iter_50.csv"
-
-  override def inputType = typeOf[LinkKMeansWithFeatureInfoSpec]
 }
 
 case class LinkKMeansWithFeatureInfoSpec(

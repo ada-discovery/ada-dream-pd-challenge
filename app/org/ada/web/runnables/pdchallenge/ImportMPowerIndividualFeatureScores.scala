@@ -1,14 +1,13 @@
 package org.ada.web.runnables.pdchallenge
 
 import javax.inject.Inject
-
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, OverflowStrategy}
 import akka.stream.scaladsl.Sink
 import org.ada.server.models.{Field, FieldTypeId, StorageType}
 import org.ada.server.dataaccess.dataset.DataSetAccessorFactory
 import play.api.libs.json.{JsNumber, Json}
-import org.incal.core.runnables.InputFutureRunnable
+import org.incal.core.runnables.{InputFutureRunnable, InputFutureRunnableExt}
 import org.ada.server.services.DataSetService
 
 import scala.io.Source
@@ -18,7 +17,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class ImportMPowerIndividualFeatureScores @Inject() (
   dsaf: DataSetAccessorFactory,
   dataSetService: DataSetService
-) extends InputFutureRunnable[ImportMPowerIndividualFeatureScoresSpec] {
+) extends InputFutureRunnableExt[ImportMPowerIndividualFeatureScoresSpec] {
 
   case class FeatureInfo(
     SubmissionId: Int,
@@ -105,8 +104,6 @@ class ImportMPowerIndividualFeatureScores @Inject() (
       (adjustedRank, featureName) -> auc
     }.toMap
   }
-
-  override def inputType = typeOf[ImportMPowerIndividualFeatureScoresSpec]
 }
 
 case class ImportMPowerIndividualFeatureScoresSpec(

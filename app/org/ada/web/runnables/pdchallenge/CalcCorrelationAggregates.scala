@@ -8,7 +8,7 @@ import play.api.libs.json._
 import org.ada.server.services.DataSetService
 import org.ada.server.models.DataSetFormattersAndIds.FieldIdentity
 import org.ada.web.models.pdchallenge.{FeatureInfo, LDOPAScoreSubmissionInfo, SubmissionInfo, mPowerScoreSubmissionInfo}
-import org.incal.core.runnables.InputFutureRunnable
+import org.incal.core.runnables.{InputFutureRunnable, InputFutureRunnableExt}
 import org.incal.core.dataaccess.Criterion._
 import org.incal.core.util.{GroupMapList, seqFutures}
 import play.api.Logger
@@ -20,7 +20,7 @@ import scala.reflect.runtime.universe.typeOf
 class CalcCorrelationAggregates @Inject()(
     dsaf: DataSetAccessorFactory,
     dataSetService: DataSetService
-  ) extends InputFutureRunnable[CalcCorrelationAggregatesSpec] with FeatureMatrixExtractor {
+  ) extends InputFutureRunnableExt[CalcCorrelationAggregatesSpec] with FeatureMatrixExtractor {
 
   private implicit val ldopaScoreSubmissionFormat = Json.format[LDOPAScoreSubmissionInfo]
   private implicit val mPowerScoreSubmissionFormat = Json.format[mPowerScoreSubmissionInfo]
@@ -233,7 +233,7 @@ class CalcCorrelationAggregates @Inject()(
 
       demographicFeatureInfos <- {
         val field = categoryField.getOrElse(throw new AdaException("Field Category not found"))
-        field.numValues.get.find(_._2.equals("demographic")).map(_._1.toInt) match {
+        field.enumValues.find(_._2.equals("demographic")).map(_._1.toInt) match {
           case Some(demographicValue) =>
             featureInfoDsa.dataSetRepo.find(
               criteria = Seq("Category" #== demographicValue)
@@ -247,8 +247,6 @@ class CalcCorrelationAggregates @Inject()(
         // need to add submissionId prefix with "-" because that's how the features are stored
         (submissionId, values.map(featureInfo => submissionId + "-" + featureInfo.Name).toSet)
       }
-
-  override def inputType = typeOf[CalcCorrelationAggregatesSpec]
 }
 
 case class CalcCorrelationAggregatesSpec(

@@ -2,7 +2,7 @@ organization := "org.adada"
 
 name := "ada-dream-pd-challenge"
 
-version := "0.0.2"
+version := "0.0.3"
 
 description := "Ada extension for PD Biomarker DREAM Challenge containing mainly custom MDS, t-SNE, and aggregated correlation (web) visualizations/screens."
 
@@ -17,7 +17,7 @@ routesImport ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.adada" %% "ada-web" % "0.7.3.RC.6",
+  "org.adada" %% "ada-web" % "0.7.3.RC.8",
   "org.webjars" % "visjs" % "4.21.0"  // interactive graph visualizations
 )
 
@@ -26,7 +26,7 @@ homepage := Some(url("https://ada-discovery.org"))
 
 publishMavenStyle := true
 
-scmInfo := Some(ScmInfo(url("https://github.com/ada-discovery/ada-web"), "scm:git@github.com:ada-discovery/ada-web.git"))
+scmInfo := Some(ScmInfo(url("https://github.com/ada-discovery/ada-dream-pd-challenge"), "scm:git@github.com:ada-discovery/ada-dream-pd-challenge.git"))
 
 developers := List(Developer("bnd", "Peter Banda", "peter.banda@protonmail.com", url("https://peterbanda.net")))
 

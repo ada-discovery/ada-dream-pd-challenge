@@ -1,14 +1,13 @@
 package org.ada.web.runnables.pdchallenge
 
 import javax.inject.Inject
-
 import org.ada.server.models.DataSetFormattersAndIds.FieldIdentity
 import org.ada.server.models.{Field, FieldTypeId, StorageType}
 import org.ada.server.AdaException
 import org.ada.server.dataaccess.dataset.DataSetAccessorFactory
 import play.api.Logger
 import play.api.libs.json._
-import org.incal.core.runnables.InputFutureRunnable
+import org.incal.core.runnables.{InputFutureRunnable, InputFutureRunnableExt}
 import org.ada.server.services.DataSetService
 import org.incal.core.dataaccess.Criterion._
 
@@ -19,7 +18,7 @@ import scala.reflect.runtime.universe.typeOf
 class LinkFeatureFileWithFeatureInfo @Inject()(
     dataSetService: DataSetService,
     dsaf: DataSetAccessorFactory
-  ) extends InputFutureRunnable[LinkFeatureFileWithFeatureInfoSpec] {
+  ) extends InputFutureRunnableExt[LinkFeatureFileWithFeatureInfoSpec] {
 
   private val submissionIdFieldName = "SubmissionId"
   private val featureFieldName = "Name"
@@ -145,8 +144,6 @@ class LinkFeatureFileWithFeatureInfo @Inject()(
             }
         }
     })
-
-  override def inputType = typeOf[LinkFeatureFileWithFeatureInfoSpec]
 }
 
 case class LinkFeatureFileWithFeatureInfoSpec(

@@ -14,7 +14,7 @@ import org.incal.core.dataaccess.Criterion.Infix
 import org.incal.core.util.{seqFutures, writeStringAsStream}
 import play.api.libs.json.JsObject
 import org.ada.server.calc.impl.MatrixCalcHelper
-import org.incal.core.runnables.InputFutureRunnable
+import org.incal.core.runnables.{InputFutureRunnable, InputFutureRunnableExt}
 
 import scala.reflect.runtime.universe.typeOf
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -24,7 +24,7 @@ class CalcEuclideanDistanceBetweenGroupsForDataSpace @Inject()(
     dsaf: DataSetAccessorFactory,
     dataSpaceMetaInfoRepo: DataSpaceMetaInfoRepo,
     statsService: StatsService
-  ) extends InputFutureRunnable[CalcEuclideanDistanceBetweenGroupsForDataSpaceSpec] with MatrixCalcHelper {
+  ) extends InputFutureRunnableExt[CalcEuclideanDistanceBetweenGroupsForDataSpaceSpec] with MatrixCalcHelper {
 
   private val eol = "\n"
   private val headerColumnNames = Seq("dataSetId", "within_group_avg_dist", "between_group_avg_dist", "groups_count")
@@ -148,8 +148,6 @@ class CalcEuclideanDistanceBetweenGroupsForDataSpace @Inject()(
       Seq(dataSetId, withinGroupAvgDist, betweenGroupsAvgDist, groups.size).mkString(delimiter)
     }
   }
-
-  override def inputType = typeOf[CalcEuclideanDistanceBetweenGroupsForDataSpaceSpec]
 }
 
 case class CalcEuclideanDistanceBetweenGroupsForDataSpaceSpec(
