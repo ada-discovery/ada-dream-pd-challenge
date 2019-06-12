@@ -1,23 +1,23 @@
 package org.ada.web.controllers.pdchallenge
 
 import javax.inject.Inject
-import be.objectify.deadbolt.scala.{AuthenticatedRequest, DeadboltActions}
+import be.objectify.deadbolt.scala.AuthenticatedRequest
 import org.incal.core.dataaccess.Criterion._
-import org.incal.core.util.{GroupMapList, seqFutures}
-import org.incal.play.controllers._
+import org.incal.core.util.GroupMapList
 import org.incal.play.security.AuthAction
 import org.ada.server.AdaException
 import org.ada.server.models.DataSetFormattersAndIds.FieldIdentity
 import org.ada.server.dataaccess.dataset.{DataSetAccessor, DataSetAccessorFactory}
+import org.ada.web.controllers.core.AdaBaseController
 import org.ada.web.models.pdchallenge._
 import play.api.{Configuration, Logger}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{Json, _}
-import play.api.mvc.{Action, AnyContent, Controller, Request}
+import play.api.mvc.AnyContent
 
 import scala.concurrent.Future
 
-class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) extends BaseController {
+class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) extends AdaBaseController {
 
   private val tremorCorrDataSetPrefix = "harvard_ldopa.tremor_correlation_abs"
   private lazy val tremorScoreBoardDsa = dsaf("harvard_ldopa.score_board_tremor_ext").get

@@ -7,18 +7,20 @@ import org.ada.server.AdaException
 import org.ada.server.dataaccess.JsonReadonlyRepoExtra._
 import org.ada.server.models._
 import org.ada.server.dataaccess.dataset.{DataSetAccessor, DataSetAccessorFactory}
+import org.ada.web.controllers.core.AdaBaseController
 import org.incal.core.dataaccess.Criterion._
 import org.incal.play.controllers._
 import org.incal.play.security.AuthAction
 import play.api.Logger
 import views.html.pdchallenge.clustering
+
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class PDChallengeClusteringController @Inject() (
     dsaf: DataSetAccessorFactory,
     widgetGenerationService: WidgetGenerationService
-  ) extends BaseController {
+  ) extends AdaBaseController {
 
   private val x1 = "x1"
   private val x2 = "x2"
