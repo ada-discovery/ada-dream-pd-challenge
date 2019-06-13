@@ -110,7 +110,7 @@ class LinkFeatureFileWithFeatureInfo @Inject()(
       _ <- {
         val scoreFieldsToStore = scoreFields.filter(_.name != scoreSubmissionIdFieldName)
 
-        dataSetService.updateDictionaryFields(
+        dataSetService.updateFields(
           input.newDataSetId,
           fields ++ scoreFieldsToStore ++ fileFields,
           false,

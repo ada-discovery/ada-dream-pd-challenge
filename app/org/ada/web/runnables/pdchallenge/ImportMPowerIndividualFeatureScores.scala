@@ -50,7 +50,7 @@ class ImportMPowerIndividualFeatureScores @Inject() (
       newDsa <- dataSetService.register(dsa, input.newDataSetId, input.newDataSetName, StorageType.ElasticSearch)
 
       // update dictionary
-      _ <- dataSetService.updateDictionaryFields(newDsa.fieldRepo, fields ++ Seq(newAUCField), false, true)
+      _ <- dataSetService.updateFields(newDsa.fieldRepo, fields ++ Seq(newAUCField), false, true)
 
       // delete the old results (if any)
       _ <- newDsa.dataSetRepo.deleteAll

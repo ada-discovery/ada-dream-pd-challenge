@@ -141,7 +141,7 @@ class CalcCorrelationAggregates @Inject()(
       )
 
       // create a new dictionary
-      _ <- dataSetService.updateDictionaryFields(newDataSetId, fields ++ Seq(submissionIdField), false, true)
+      _ <- dataSetService.updateFields(newDataSetId, fields ++ Seq(submissionIdField), false, true)
 
       // delete the old data (if any)
       _ <- targetDsa.dataSetRepo.deleteAll
