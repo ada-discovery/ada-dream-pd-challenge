@@ -12,6 +12,12 @@ scalaVersion := "2.11.12"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
+resolvers ++= Seq(
+  "Sci Java" at "https://maven.scijava.org/content/repositories/public/", // for the T-SNE lib
+  "bnd libs" at "https://peterbanda.net/maven2/", // to remove once upgraded to ada-server 0.8.1
+  Resolver.mavenLocal
+)
+
 routesImport ++= Seq(
   "org.ada.web.controllers.pdchallenge.QueryStringBinders._"
 )
