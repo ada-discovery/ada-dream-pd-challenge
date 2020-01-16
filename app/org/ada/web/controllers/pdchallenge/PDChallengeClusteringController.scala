@@ -185,6 +185,8 @@ class PDChallengeClusteringController @Inject() (
   )
 
   def index = AuthAction { implicit request =>
+    logger.info("PD Biomarker DREAM challenge - clustering home accessed.")
+
     Future(Ok(views.html.pdchallenge.clusteringHome()))
   }
 

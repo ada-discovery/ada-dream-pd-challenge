@@ -2,7 +2,7 @@ organization := "org.adada"
 
 name := "ada-dream-pd-challenge"
 
-version := "0.0.6"
+version := "0.0.7"
 
 description := "Ada extension for PD Biomarker DREAM Challenge containing mainly custom MDS, t-SNE, and aggregated correlation (web) visualizations/screens."
 

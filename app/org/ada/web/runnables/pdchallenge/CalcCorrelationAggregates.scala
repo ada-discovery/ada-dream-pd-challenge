@@ -265,9 +265,9 @@ trait FeatureMatrixExtractor {
     val mean = aggAux(values => values.sum / values.size)(_)
 
     private def aggAux(
-                        agg: Seq[Double] => Double)(
-                        values: Seq[Option[Double]]
-                      ) =
+      agg: Seq[Double] => Double)(
+      values: Seq[Option[Double]]
+    ) =
       values.flatten match {
         case Nil => None
         case flattenedValues => Some(agg(flattenedValues))
@@ -323,10 +323,10 @@ trait FeatureMatrixExtractor {
       Future((None, None))
 
   private def extractRowColumnAggregates(
-                                          matrix: Seq[Seq[Option[Double]]],
-                                          aggOut: Seq[Option[Double]] => Option[Double],
-                                          aggIn: Seq[Option[Double]] => Option[Double]
-                                        ): (Option[Double], Option[Double]) = {
+    matrix: Seq[Seq[Option[Double]]],
+    aggOut: Seq[Option[Double]] => Option[Double],
+    aggIn: Seq[Option[Double]] => Option[Double]
+  ): (Option[Double], Option[Double]) = {
     def calcAux(m: Seq[Seq[Option[Double]]]) =
       aggOut(m.par.map(aggIn).toList)
 

@@ -43,6 +43,8 @@ class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) e
   private implicit val mPowerScoreSubmissionFormat = Json.format[mPowerScoreSubmissionInfo]
 
   def index = AuthAction { implicit request =>
+    logger.info("PD Biomarker DREAM challenge - correlation home accessed.")
+
     Future(Ok(views.html.pdchallenge.correlationHome()))
   }
 
