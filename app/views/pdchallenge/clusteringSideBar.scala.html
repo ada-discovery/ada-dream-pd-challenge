@@ -5,26 +5,24 @@
 
 @()(implicit context: WebContext)
 
-@defining(context.configuration.getInt("pdchallange.sidebar.urlparts.count").getOrElse(2)) { urlPartsCounts =>
-    @basicSideBar(
-        _root_.pdchallenge.RoutesPrefix.prefix,
-        Seq(
-            ("1. mPower", Seq(
-                (challengeRoutes.mPowerMDS(topRank = Some(10)), "MDS", Some(2)),
-                (challengeRoutes.mPowerTSNE(topRank = Some(10)), "t-SNE", Some(2))
-            )),
-            ("2.1 Tremor", Seq(
-                (challengeRoutes.tremorMDS(topRank = Some(10)), "MDS", Some(2)),
-                (challengeRoutes.tremorTSNE(topRank = Some(10)), "t-SNE", Some(2))
-            )),
-            ("2.2 Dyskinesia", Seq(
-                (challengeRoutes.dyskinesiaMDS(topRank = Some(10)), "MDS", Some(2)),
-                (challengeRoutes.dyskinesiaTSNE(topRank = Some(10)), "t-SNE", Some(2))
-            )),
-            ("2.3 Bradykinesia", Seq(
-                (challengeRoutes.bradykinesiaMDS(topRank = Some(10)), "MDS", Some(2)),
-                (challengeRoutes.bradykinesiaTSNE(topRank = Some(10)), "t-SNE", Some(2))
-            ))
-        )
+@basicSideBar(
+    _root_.pdchallenge.RoutesPrefix.prefix,
+    Seq(
+        ("1. mPower", Seq(
+            (challengeRoutes.mPowerMDS(topRank = Some(10)), "MDS", Some(2)),
+            (challengeRoutes.mPowerTSNE(topRank = Some(10)), "t-SNE", Some(2))
+        )),
+        ("2.1 Tremor", Seq(
+            (challengeRoutes.tremorMDS(topRank = Some(10)), "MDS", Some(2)),
+            (challengeRoutes.tremorTSNE(topRank = Some(10)), "t-SNE", Some(2))
+        )),
+        ("2.2 Dyskinesia", Seq(
+            (challengeRoutes.dyskinesiaMDS(topRank = Some(10)), "MDS", Some(2)),
+            (challengeRoutes.dyskinesiaTSNE(topRank = Some(10)), "t-SNE", Some(2))
+        )),
+        ("2.3 Bradykinesia", Seq(
+            (challengeRoutes.bradykinesiaMDS(topRank = Some(10)), "MDS", Some(2)),
+            (challengeRoutes.bradykinesiaTSNE(topRank = Some(10)), "t-SNE", Some(2))
+        ))
     )
-}
+)
