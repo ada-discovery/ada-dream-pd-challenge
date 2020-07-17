@@ -13,6 +13,7 @@ scalaVersion := "2.11.12"
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 resolvers ++= Seq(
+  "Sci Java" at "https://maven.scijava.org/content/repositories/public/", // for the T-SNE lib
   Resolver.mavenLocal
 )
 
