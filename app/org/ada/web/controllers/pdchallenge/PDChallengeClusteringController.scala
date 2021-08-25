@@ -323,9 +323,8 @@ class PDChallengeClusteringController @Inject() (
     scaled: Boolean
   ) = dsa(s"mpower_challenge.mpower${scaledToString(scaled)}-cols-2d_iter-4000_per-20_0_theta-0_25${pcaDimsToString(pcaDims)}-${methodToString(method)}kmeans_${k}_iter_50_ext")
 
-  private def dsa(dataSetId: String) = dsaf(dataSetId).getOrElse(
-    throw new AdaException(s"Data set $dataSetId does not exist.")
-  )
+  @Deprecated // TODO: a dummy function... remove
+  private def dsa(dataSetId: String): Future[DataSetAccessor] = dsaf.getOrError(dataSetId)
 
   private def methodToString(method: Int) =
     method match {
@@ -348,7 +347,7 @@ class PDChallengeClusteringController @Inject() (
 
   private def clusterizationAux(
     title: String,
-    dsa: DataSetAccessor,
+    dsaFuture: Future[DataSetAccessor],
     rankFieldName: String,
     topRank: Option[Int],
     leaveTopRank: Option[Int],
@@ -364,6 +363,9 @@ class PDChallengeClusteringController @Inject() (
     ).flatten
 
     for {
+      // get the associated data set accessor
+      dsa <- dsaFuture
+
       // get all the fields
       fields <- dsa.fieldRepo.find()
 

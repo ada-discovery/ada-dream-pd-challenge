@@ -11,7 +11,6 @@ import org.incal.core.runnables.{InputFutureRunnable, InputFutureRunnableExt}
 import org.ada.server.services.DataSetService
 
 import scala.io.Source
-import scala.reflect.runtime.universe.typeOf
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class ImportMPowerIndividualFeatureScores @Inject() (
@@ -39,10 +38,12 @@ class ImportMPowerIndividualFeatureScores @Inject() (
   override def runAsFuture(
     input: ImportMPowerIndividualFeatureScoresSpec
   ) = {
-    val dsa = dsaf(input.featureDataSetId).get
     val individualAucsMap = loadFromFile(input.fileName)
 
     for {
+      // data set accessor
+      dsa <- dsaf.getOrError(input.featureDataSetId)
+
       // old fields
       fields <- dsa.fieldRepo.find()
 

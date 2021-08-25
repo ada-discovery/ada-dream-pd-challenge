@@ -29,11 +29,14 @@ class LinkFeatureFileWithFeatureInfo @Inject()(
     "ROW_ID", "ROW_VERSION", "Team", "dataFileHandleId", "entityId", "submissionName", "teamWiki"
   )
 
-  override def runAsFuture(input: LinkFeatureFileWithFeatureInfoSpec) = {
-    val metaInfoDsa = dsaf(input.featureMetaInfoDataSetId).get
-    val scoreDsa = dsaf(input.scoreDataSetId).get
-
+  override def runAsFuture(input: LinkFeatureFileWithFeatureInfoSpec) =
     for {
+      // meta info data set accessor
+      metaInfoDsa <- dsaf.getOrError(input.featureMetaInfoDataSetId)
+
+      // score data set accessor
+      scoreDsa <- dsaf.getOrError(input.scoreDataSetId)
+
       // get all the fields
       fields <- metaInfoDsa.fieldRepo.find()
 
@@ -128,7 +131,6 @@ class LinkFeatureFileWithFeatureInfo @Inject()(
       _ <- targetDsa.dataViewRepo.save(views)
     } yield
       ()
-  }
 
   private def scoreSubmissionId(json: JsObject): Option[Int] =
     (json \ scoreSubmissionIdFieldName).toOption.flatMap( _ match {

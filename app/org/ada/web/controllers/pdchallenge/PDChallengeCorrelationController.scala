@@ -20,20 +20,20 @@ import scala.concurrent.Future
 class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) extends AdaBaseController {
 
   private val tremorCorrDataSetPrefix = "harvard_ldopa.tremor_correlation_abs"
-  private lazy val tremorScoreBoardDsa = dsaf("harvard_ldopa.score_board_tremor_ext").get
-  private lazy val tremorFeatureInfoDsa = dsaf("harvard_ldopa.tremor_feature_info").get
+  private lazy val tremorScoreBoardDataSetId = "harvard_ldopa.score_board_tremor_ext"
+  private lazy val tremorFeatureInfoDataSetId = "harvard_ldopa.tremor_feature_info"
 
   private val dyskinesiaCorrDateSetPrefix = "harvard_ldopa.dyskinesia_correlation_abs"
-  private lazy val dyskinesiaScoreBoardDsa = dsaf("harvard_ldopa.score_board_dyskinesia_ext").get
-  private lazy val dyskinesiaFeatureInfoDsa = dsaf("harvard_ldopa.dyskinesia_feature_info").get
+  private lazy val dyskinesiaScoreBoardDataSetId = "harvard_ldopa.score_board_dyskinesia_ext"
+  private lazy val dyskinesiaFeatureInfoDataSetId = "harvard_ldopa.dyskinesia_feature_info"
 
   private val bradykinesiaCorrDataSetPrefix = "harvard_ldopa.bradykinesia_correlation_abs"
-  private lazy val bradykinesiaScoreBoardDsa = dsaf("harvard_ldopa.score_board_bradykinesia_ext").get
-  private lazy val bradykinesiaFeatureInfoDsa = dsaf("harvard_ldopa.bradykinesia_feature_info").get
+  private lazy val bradykinesiaScoreBoardDataSetId = "harvard_ldopa.score_board_bradykinesia_ext"
+  private lazy val bradykinesiaFeatureInfoDataSetId = "harvard_ldopa.bradykinesia_feature_info"
 
   private val mPowerCorrDataSetPrefix = "mpower_challenge.correlation_abs"
-  private lazy val mPowerScoreBoardDsa = dsaf("mpower_challenge.score_board_ext").get
-  private lazy val mPowerFeatureInfoDsa = dsaf("mpower_challenge.feature_info").get
+  private lazy val mPowerScoreBoardDataSetId = "mpower_challenge.score_board_ext"
+  private lazy val mPowerFeatureInfoDataSetId = "mpower_challenge.feature_info"
 
   private val defaultAbsCorrMeanCutoff = 0.5
 
@@ -54,13 +54,11 @@ class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) e
     withDemographics: Boolean,
     corrThreshold: Option[Double]
   ) = AuthAction { implicit request =>
-    val correlationDsa = getCorrelationDsa(tremorCorrDataSetPrefix, aggOut, aggIn, withDemographics)
-
     showTeamCorrelationNetwork(
       "LDOPA Tremor Subchallenge Team Correlation",
-      correlationDsa,
-      tremorScoreBoardDsa,
-      tremorFeatureInfoDsa,
+      tremorCorrDataSetPrefix,
+      tremorScoreBoardDataSetId,
+      tremorFeatureInfoDataSetId,
       corrThreshold,
       aggOut,
       aggIn,
@@ -74,13 +72,11 @@ class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) e
     withDemographics: Boolean,
     corrThreshold: Option[Double]
   ) = AuthAction { implicit request =>
-    val correlationDsa = getCorrelationDsa(dyskinesiaCorrDateSetPrefix, aggOut, aggIn, withDemographics)
-
     showTeamCorrelationNetwork(
       "LDOPA Dyskinesia Subchallenge Team Correlation",
-      correlationDsa,
-      dyskinesiaScoreBoardDsa,
-      dyskinesiaFeatureInfoDsa,
+      dyskinesiaCorrDateSetPrefix,
+      dyskinesiaScoreBoardDataSetId,
+      dyskinesiaFeatureInfoDataSetId,
       corrThreshold,
       aggOut,
       aggIn,
@@ -94,13 +90,11 @@ class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) e
     withDemographics: Boolean,
     corrThreshold: Option[Double]
   ) = AuthAction { implicit request =>
-    val correlationDsa = getCorrelationDsa(bradykinesiaCorrDataSetPrefix, aggOut, aggIn, withDemographics)
-
     showTeamCorrelationNetwork(
       "LDOPA Bradykinesia Subchallenge Team Correlation",
-      correlationDsa,
-      bradykinesiaScoreBoardDsa,
-      bradykinesiaFeatureInfoDsa,
+      bradykinesiaCorrDataSetPrefix,
+      bradykinesiaScoreBoardDataSetId,
+      bradykinesiaFeatureInfoDataSetId,
       corrThreshold,
       aggOut,
       aggIn,
@@ -114,13 +108,11 @@ class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) e
     withDemographics: Boolean,
     corrThreshold: Option[Double]
   ) = AuthAction { implicit request =>
-    val correlationDsa = getCorrelationDsa(mPowerCorrDataSetPrefix, aggOut, aggIn, withDemographics)
-
     showTeamCorrelationNetwork(
       "mPower Subchallenge Team Correlation",
-      correlationDsa,
-      mPowerScoreBoardDsa,
-      mPowerFeatureInfoDsa,
+      mPowerCorrDataSetPrefix,
+      mPowerScoreBoardDataSetId,
+      mPowerFeatureInfoDataSetId,
       corrThreshold,
       aggOut,
       aggIn,
@@ -134,13 +126,11 @@ class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) e
     withDemographics: Boolean,
     corrThreshold: Option[Double]
   ) = AuthAction { implicit request =>
-    val correlationDsa = getCorrelationDsa(tremorCorrDataSetPrefix, aggOut, aggIn, withDemographics)
-
     showSubmissionCorrelationNetwork(
       "LDOPA Tremor Subchallenge Submission Correlation",
-      correlationDsa,
-      tremorScoreBoardDsa,
-      tremorFeatureInfoDsa,
+      tremorCorrDataSetPrefix,
+      tremorScoreBoardDataSetId,
+      tremorFeatureInfoDataSetId,
       corrThreshold,
       aggOut,
       aggIn,
@@ -154,13 +144,11 @@ class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) e
     withDemographics: Boolean,
     corrThreshold: Option[Double]
   ) = AuthAction { implicit request =>
-    val correlationDsa = getCorrelationDsa(dyskinesiaCorrDateSetPrefix, aggOut, aggIn, withDemographics)
-
     showSubmissionCorrelationNetwork(
       "LDOPA Dyskinesia Subchallenge Submission Correlation",
-      correlationDsa,
-      dyskinesiaScoreBoardDsa,
-      dyskinesiaFeatureInfoDsa,
+      dyskinesiaCorrDateSetPrefix,
+      dyskinesiaScoreBoardDataSetId,
+      dyskinesiaFeatureInfoDataSetId,
       corrThreshold,
       aggOut,
       aggIn,
@@ -174,13 +162,11 @@ class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) e
     withDemographics: Boolean,
     corrThreshold: Option[Double]
   ) = AuthAction { implicit request =>
-    val correlationDsa = getCorrelationDsa(bradykinesiaCorrDataSetPrefix, aggOut, aggIn, withDemographics)
-
     showSubmissionCorrelationNetwork(
       "LDOPA Bradykinesia Subchallenge Submission Correlation",
-      correlationDsa,
-      bradykinesiaScoreBoardDsa,
-      bradykinesiaFeatureInfoDsa,
+      bradykinesiaCorrDataSetPrefix,
+      bradykinesiaScoreBoardDataSetId,
+      bradykinesiaFeatureInfoDataSetId,
       corrThreshold,
       aggOut,
       aggIn,
@@ -194,13 +180,11 @@ class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) e
     withDemographics: Boolean,
     corrThreshold: Option[Double]
   ) = AuthAction { implicit request =>
-    val correlationDsa = getCorrelationDsa(mPowerCorrDataSetPrefix, aggOut, aggIn, withDemographics)
-
     showSubmissionCorrelationNetwork(
       "mPower Subchallenge Submission Correlation",
-      correlationDsa,
-      mPowerScoreBoardDsa,
-      mPowerFeatureInfoDsa,
+      mPowerCorrDataSetPrefix,
+      mPowerScoreBoardDataSetId,
+      mPowerFeatureInfoDataSetId,
       corrThreshold,
       aggOut,
       aggIn,
@@ -213,19 +197,19 @@ class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) e
     aggOut: AggFunction.Value,
     aggIn: AggFunction.Value,
     withDemographics: Boolean
-  ): DataSetAccessor = {
+  ): Future[DataSetAccessor] = {
     val dataSetId = s"${prefix}_${aggOut.toString}_${aggIn.toString}"
     if (withDemographics)
-      dsaf(dataSetId).get
+      dsaf.getOrError(dataSetId)
     else
-      dsaf(dataSetId + "_wo_dem").get
+      dsaf.getOrError(dataSetId + "_wo_dem")
   }
 
   private def showTeamCorrelationNetwork(
     domainName: String,
-    corrDsa: DataSetAccessor,
-    scoreBoardDsa: DataSetAccessor,
-    featureInfoDsa: DataSetAccessor,
+    correlationDataSetPrefix: String,
+    scoreBoardDataSetId: String,
+    featureInfoDataSetId: String,
     corrThreshold: Option[Double],
     aggOut: AggFunction.Value,
     aggIn: AggFunction.Value,
@@ -233,7 +217,17 @@ class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) e
     implicit request: AuthenticatedRequest[AnyContent]
   ) = {
     val threshold = corrThreshold.getOrElse(defaultAbsCorrMeanCutoff)
+
     for {
+      // correlation data set accessor
+      corrDsa <- getCorrelationDsa(correlationDataSetPrefix, aggOut, aggIn, withDemographics)
+
+      // score board data set accessor
+      scoreBoardDsa <- dsaf.getOrError(scoreBoardDataSetId)
+
+      // feature info data set accessor
+      featureInfoDsa <- dsaf.getOrError(featureInfoDataSetId)
+
       // get all the scored submission infos
       submissionInfos: Traversable[SubmissionInfo] <- scoreBoardDsa.dataSetRepo.find().map(jsons =>
         jsons.map ( json =>
@@ -320,9 +314,9 @@ class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) e
 
   private def showSubmissionCorrelationNetwork(
     domainName: String,
-    corrDsa: DataSetAccessor,
-    scoreBoardDsa: DataSetAccessor,
-    featureInfoDsa: DataSetAccessor,
+    correlationDataSetPrefix: String,
+    scoreBoardDataSetId: String,
+    featureInfoDataSetId: String,
     corrThreshold: Option[Double],
     aggOut: AggFunction.Value,
     aggIn: AggFunction.Value,
@@ -330,7 +324,17 @@ class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) e
     implicit request: AuthenticatedRequest[AnyContent]
   ) = {
     val threshold = corrThreshold.getOrElse(defaultAbsCorrMeanCutoff)
+
     for {
+      // correlation data set accessor
+      corrDsa <- getCorrelationDsa(correlationDataSetPrefix, aggOut, aggIn, withDemographics)
+
+      // score board data set accessor
+      scoreBoardDsa <- dsaf.getOrError(scoreBoardDataSetId)
+
+      // feature info data set accessor
+      featureInfoDsa <- dsaf.getOrError(featureInfoDataSetId)
+
       // get all the scored submission infos
       submissionInfos: Traversable[SubmissionInfo] <- scoreBoardDsa.dataSetRepo.find().map(jsons =>
         jsons.map ( json =>

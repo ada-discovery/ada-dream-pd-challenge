@@ -45,12 +45,17 @@ class CalcCorrelationAggregates @Inject()(
   } yield
     (aggOut, aggIn)
 
-  override def runAsFuture(spec: CalcCorrelationAggregatesSpec) = {
-    val scoreBoardDsa = dsaf(spec.scoreBoardDataSetId).get
-    val correlationDsa = dsaf(spec.correlationDataSetId).get
-    val featureInfoDsa = dsaf(spec.featureInfoDataSetId).get
-
+  override def runAsFuture(spec: CalcCorrelationAggregatesSpec) =
     for {
+      // score board data set accessor
+      scoreBoardDsa <- dsaf.getOrError(spec.scoreBoardDataSetId)
+
+      // correlation data set accessor
+      correlationDsa <- dsaf.getOrError(spec.correlationDataSetId)
+
+      // feature info data set accessor
+      featureInfoDsa <- dsaf.getOrError(spec.featureInfoDataSetId)
+
       // get the name of the source correlation data set
       correlationSetName <- correlationDsa.dataSetName
 
@@ -86,7 +91,6 @@ class CalcCorrelationAggregates @Inject()(
       }
     } yield
       ()
-  }
 
   private def runAux(
     submissionInfos: Traversable[SubmissionInfo],
