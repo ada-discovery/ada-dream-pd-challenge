@@ -2,7 +2,7 @@ organization := "org.adada"
 
 name := "ada-dream-pd-challenge"
 
-version := "0.1.1"
+version := "0.1.2"
 
 description := "Ada extension for PD Biomarker DREAM Challenge containing mainly custom MDS, t-SNE, and aggregated correlation (web) visualizations/screens."
 
@@ -22,7 +22,7 @@ routesImport ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.adada" %% "ada-web" % "0.9.0.RC.1",
+  "org.adada" %% "ada-web" % "0.9.0",
   "org.webjars" % "visjs" % "4.21.0"  // interactive graph visualizations
 )
 
