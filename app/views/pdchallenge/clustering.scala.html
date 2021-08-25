@@ -4,7 +4,6 @@
 @import org.ada.web.controllers.pdchallenge.routes.{PDChallengeClusteringController => challengeRoutes}
 @import views.html.basicSideBar
 @import views.html.layout.main
-@import views.html.chart.highcharts.highchartsJsImport
 @import views.html.widget.{widgetPanel, widgetPanelJs}
 @import views.html.pdchallenge.clusteringSideBar
 
@@ -23,7 +22,6 @@
 )(implicit context: WebContext)
 
 @bottomResources = {
-    @highchartsJsImport()
     @widgetPanelJs(widgets)
 
     <script type="text/javascript">
