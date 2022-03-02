@@ -20,20 +20,20 @@ import scala.concurrent.Future
 class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) extends AdaBaseController {
 
   private val tremorCorrDataSetPrefix = "harvard_ldopa.tremor_correlation_abs"
-  private lazy val tremorScoreBoardDsa = dsaf("harvard_ldopa.score_board_tremor_ext").get
-  private lazy val tremorFeatureInfoDsa = dsaf("harvard_ldopa.tremor_feature_info").get
+  private lazy val tremorScoreBoardDsa = dsaf.applySync("harvard_ldopa.score_board_tremor_ext").get
+  private lazy val tremorFeatureInfoDsa = dsaf.applySync("harvard_ldopa.tremor_feature_info").get
 
   private val dyskinesiaCorrDateSetPrefix = "harvard_ldopa.dyskinesia_correlation_abs"
-  private lazy val dyskinesiaScoreBoardDsa = dsaf("harvard_ldopa.score_board_dyskinesia_ext").get
-  private lazy val dyskinesiaFeatureInfoDsa = dsaf("harvard_ldopa.dyskinesia_feature_info").get
+  private lazy val dyskinesiaScoreBoardDsa = dsaf.applySync("harvard_ldopa.score_board_dyskinesia_ext").get
+  private lazy val dyskinesiaFeatureInfoDsa = dsaf.applySync("harvard_ldopa.dyskinesia_feature_info").get
 
   private val bradykinesiaCorrDataSetPrefix = "harvard_ldopa.bradykinesia_correlation_abs"
-  private lazy val bradykinesiaScoreBoardDsa = dsaf("harvard_ldopa.score_board_bradykinesia_ext").get
-  private lazy val bradykinesiaFeatureInfoDsa = dsaf("harvard_ldopa.bradykinesia_feature_info").get
+  private lazy val bradykinesiaScoreBoardDsa = dsaf.applySync("harvard_ldopa.score_board_bradykinesia_ext").get
+  private lazy val bradykinesiaFeatureInfoDsa = dsaf.applySync("harvard_ldopa.bradykinesia_feature_info").get
 
   private val mPowerCorrDataSetPrefix = "mpower_challenge.correlation_abs"
-  private lazy val mPowerScoreBoardDsa = dsaf("mpower_challenge.score_board_ext").get
-  private lazy val mPowerFeatureInfoDsa = dsaf("mpower_challenge.feature_info").get
+  private lazy val mPowerScoreBoardDsa = dsaf.applySync("mpower_challenge.score_board_ext").get
+  private lazy val mPowerFeatureInfoDsa = dsaf.applySync("mpower_challenge.feature_info").get
 
   private val defaultAbsCorrMeanCutoff = 0.5
 
@@ -216,9 +216,9 @@ class PDChallengeCorrelationController @Inject()(dsaf: DataSetAccessorFactory) e
   ): DataSetAccessor = {
     val dataSetId = s"${prefix}_${aggOut.toString}_${aggIn.toString}"
     if (withDemographics)
-      dsaf(dataSetId).get
+      dsaf.applySync(dataSetId).get
     else
-      dsaf(dataSetId + "_wo_dem").get
+      dsaf.applySync(dataSetId + "_wo_dem").get
   }
 
   private def showTeamCorrelationNetwork(

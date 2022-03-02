@@ -323,7 +323,7 @@ class PDChallengeClusteringController @Inject() (
     scaled: Boolean
   ) = dsa(s"mpower_challenge.mpower${scaledToString(scaled)}-cols-2d_iter-4000_per-20_0_theta-0_25${pcaDimsToString(pcaDims)}-${methodToString(method)}kmeans_${k}_iter_50_ext")
 
-  private def dsa(dataSetId: String) = dsaf(dataSetId).getOrElse(
+  private def dsa(dataSetId: String) = dsaf.applySync(dataSetId).getOrElse(
     throw new AdaException(s"Data set $dataSetId does not exist.")
   )
 

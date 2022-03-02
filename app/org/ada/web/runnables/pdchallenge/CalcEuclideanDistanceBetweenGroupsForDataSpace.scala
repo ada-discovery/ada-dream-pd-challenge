@@ -60,7 +60,7 @@ class CalcEuclideanDistanceBetweenGroupsForDataSpace @Inject()(
     dataSetId: String
   ): Future[String] = {
     logger.info(s"Calculating an Euclidean distance between points for the data set $dataSetId using the group field '$groupFieldName'.")
-    val dsa = dsaf(dataSetId).get
+    val dsa = dsaf.applySync(dataSetId).get
 
     def points(jsons: Traversable[JsObject]) =
       jsons.map { json =>

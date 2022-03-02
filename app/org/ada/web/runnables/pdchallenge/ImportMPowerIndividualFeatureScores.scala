@@ -39,7 +39,7 @@ class ImportMPowerIndividualFeatureScores @Inject() (
   override def runAsFuture(
     input: ImportMPowerIndividualFeatureScoresSpec
   ) = {
-    val dsa = dsaf(input.featureDataSetId).get
+    val dsa = dsaf.applySync(input.featureDataSetId).get
     val individualAucsMap = loadFromFile(input.fileName)
 
     for {

@@ -46,9 +46,9 @@ class CalcCorrelationAggregates @Inject()(
     (aggOut, aggIn)
 
   override def runAsFuture(spec: CalcCorrelationAggregatesSpec) = {
-    val scoreBoardDsa = dsaf(spec.scoreBoardDataSetId).get
-    val correlationDsa = dsaf(spec.correlationDataSetId).get
-    val featureInfoDsa = dsaf(spec.featureInfoDataSetId).get
+    val scoreBoardDsa = dsaf.applySync(spec.scoreBoardDataSetId).get
+    val correlationDsa = dsaf.applySync(spec.correlationDataSetId).get
+    val featureInfoDsa = dsaf.applySync(spec.featureInfoDataSetId).get
 
     for {
       // get the name of the source correlation data set

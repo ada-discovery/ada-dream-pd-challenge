@@ -19,7 +19,7 @@ class CheckSubmissionFeatureMetaInfoNames @Inject()(
   private val featureFieldName = "Name"
 
   override def runAsFuture(input: CheckSubmissionFeatureMetaInfoNamesSpec) = {
-    val dsa = dsaf(input.featureMetaInfoDataSetId).get
+    val dsa = dsaf.applySync(input.featureMetaInfoDataSetId).get
     for {
       submissionFeatureSet <- dsa.dataSetRepo.find(projection = Seq(submissionIdFieldName, featureFieldName)).map { jsons =>
         jsons.map { json =>

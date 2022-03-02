@@ -22,7 +22,7 @@ routesImport ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.adada" %% "ada-web" % "0.9.0.RC.1",
+  "org.adada" %% "ada-web" % "0.9.1-SNAPSHOT",
   "org.webjars" % "visjs" % "4.21.0"  // interactive graph visualizations
 )
 

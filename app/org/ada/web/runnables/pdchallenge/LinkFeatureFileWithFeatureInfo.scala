@@ -30,8 +30,8 @@ class LinkFeatureFileWithFeatureInfo @Inject()(
   )
 
   override def runAsFuture(input: LinkFeatureFileWithFeatureInfoSpec) = {
-    val metaInfoDsa = dsaf(input.featureMetaInfoDataSetId).get
-    val scoreDsa = dsaf(input.scoreDataSetId).get
+    val metaInfoDsa = dsaf.applySync(input.featureMetaInfoDataSetId).get
+    val scoreDsa = dsaf.applySync(input.scoreDataSetId).get
 
     for {
       // get all the fields
